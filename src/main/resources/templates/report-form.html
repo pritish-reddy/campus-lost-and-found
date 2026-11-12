@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${heading})}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container narrow">
+    <div th:replace="~{fragments :: messages}"></div>
+    <h1 th:text="${heading}">Report an Item</h1>
+    <p th:text="${intro}"></p>
+
+    <form method="post" th:action="@{${action}}" class="form">
+        <label for="itemName">Item name</label>
+        <input type="text" id="itemName" name="itemName" maxlength="100" required placeholder="e.g. Black wallet">
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" maxlength="1000"
+                  placeholder="Colour, brand, marks or anything that identifies it"></textarea>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" maxlength="150" placeholder="e.g. Library, Block A">
+
+        <div class="actions">
+            <button type="submit">Submit</button>
+            <a class="btn btn-light" th:href="@{${back}}">Cancel</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

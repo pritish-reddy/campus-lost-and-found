@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <div th:replace="~{fragments :: messages}"></div>
+    <h1>Admin: Review Claims</h1>
+    <p>Approving a claim marks the found item as CLAIMED. Other pending claims for that item are rejected.</p>
+
+    <p class="empty" th:if="${#lists.isEmpty(claims)}">No claims have been submitted yet.</p>
+
+    <table th:unless="${#lists.isEmpty(claims)}">
+        <thead>
+        <tr><th>#</th><th>Item</th><th>Claimant</th><th>Reason</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="claim : ${claims}">
+            <td th:text="${claim.id}">1</td>
+            <td th:text="${claim.itemName}">Item</td>
+            <td th:text="${claim.claimantName}">Name</td>
+            <td th:text="${claim.claimReason}">Reason</td>
+            <td><span class="badge" th:classappend="${claim.status}" th:text="${claim.status}">PENDING</span></td>
+            <td>
+                <form method="post" th:action="@{/admin/verify}" th:if="${claim.status == 'PENDING'}" class="inline">
+                    <input type="hidden" name="claimId" th:value="${claim.id}">
+                    <button type="submit" name="decision" value="APPROVED" class="approve">Approve</button>
+                    <button type="submit" name="decision" value="REJECTED" class="reject">Reject</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

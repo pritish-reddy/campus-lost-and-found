@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Home')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <h1>Campus Lost &amp; Found</h1>
+    <p>Lost something on campus? Found something that is not yours? Report it here so it can get back to its owner.</p>
+
+    <div class="stats">
+        <div class="stat"><strong th:text="${lostCount}">0</strong><span>lost items reported</span></div>
+        <div class="stat"><strong th:text="${foundCount}">0</strong><span>found items available</span></div>
+        <div class="stat"><strong th:text="${pendingCount}">0</strong><span>claims waiting for review</span></div>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h2>I lost something</h2>
+            <p>Report your lost item so others can look out for it.</p>
+            <a class="btn" th:href="@{/lost/new}">Report Lost Item</a>
+        </div>
+        <div class="card">
+            <h2>I found something</h2>
+            <p>Report the item so its owner can find it.</p>
+            <a class="btn" th:href="@{/found/new}">Report Found Item</a>
+        </div>
+        <div class="card">
+            <h2>Browse items</h2>
+            <p>See what has been reported, and claim an item that is yours.</p>
+            <a class="btn btn-light" th:href="@{/lost}">Lost Items</a>
+            <a class="btn btn-light" th:href="@{/found}">Found Items</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

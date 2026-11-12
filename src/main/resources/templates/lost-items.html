@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Lost Items')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <div th:replace="~{fragments :: messages}"></div>
+    <h1>Lost Items</h1>
+
+    <div class="toolbar">
+        <form method="get" th:action="@{/lost}" class="search">
+            <input type="text" name="q" th:value="${q}" placeholder="Search by name, description or location">
+            <button type="submit">Search</button>
+        </form>
+        <a class="btn" th:href="@{/lost/new}">Report a Lost Item</a>
+    </div>
+
+    <p class="empty" th:if="${#lists.isEmpty(items)}">No lost items found.</p>
+
+    <table th:unless="${#lists.isEmpty(items)}">
+        <thead>
+        <tr><th>Item</th><th>Description</th><th>Last seen at</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.itemName}">Item</td>
+            <td th:text="${item.description}">Description</td>
+            <td th:text="${item.location}">Location</td>
+            <td><span class="badge" th:classappend="${item.status}" th:text="${item.status}">REPORTED</span></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

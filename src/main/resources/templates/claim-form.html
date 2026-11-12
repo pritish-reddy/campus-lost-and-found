@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Claim Item')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container narrow">
+    <div th:replace="~{fragments :: messages}"></div>
+    <h1>Claim an Item</h1>
+
+    <div class="card">
+        <h2 th:text="${item.itemName}">Item</h2>
+        <p th:text="${item.description}">Description</p>
+        <p><strong>Found at:</strong> <span th:text="${item.location}">Location</span></p>
+    </div>
+
+    <form method="post" th:action="@{/claim}" class="form">
+        <input type="hidden" name="itemId" th:value="${item.id}">
+
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" maxlength="100" required>
+
+        <label for="reason">Why is this yours?</label>
+        <textarea id="reason" name="reason" rows="4" maxlength="1000" required
+                  placeholder="Describe details only the owner would know"></textarea>
+
+        <div class="actions">
+            <button type="submit">Submit Claim</button>
+            <a class="btn btn-light" th:href="@{/found}">Cancel</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

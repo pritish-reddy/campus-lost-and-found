@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' - Campus Lost and Found'">Campus Lost and Found</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header th:fragment="nav" class="site-header">
+    <div class="container">
+        <a class="brand" th:href="@{/}">Campus Lost &amp; Found</a>
+        <nav>
+            <a th:href="@{/lost}">Lost Items</a>
+            <a th:href="@{/found}">Found Items</a>
+            <a th:href="@{/admin}">Admin</a>
+        </nav>
+    </div>
+</header>
+<div th:fragment="messages">
+    <p class="msg success" th:if="${message}" th:text="${message}"></p>
+    <p class="msg error" th:if="${error}" th:text="${error}"></p>
+</div>
+</body>
+</html>

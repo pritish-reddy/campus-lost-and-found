@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Found Items')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <div th:replace="~{fragments :: messages}"></div>
+    <h1>Found Items</h1>
+
+    <div class="toolbar">
+        <form method="get" th:action="@{/found}" class="search">
+            <input type="text" name="q" th:value="${q}" placeholder="Search by name, description or location">
+            <button type="submit">Search</button>
+        </form>
+        <a class="btn" th:href="@{/found/new}">Report a Found Item</a>
+    </div>
+
+    <p class="empty" th:if="${#lists.isEmpty(items)}">No found items yet.</p>
+
+    <table th:unless="${#lists.isEmpty(items)}">
+        <thead>
+        <tr><th>Item</th><th>Description</th><th>Found at</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.itemName}">Item</td>
+            <td th:text="${item.description}">Description</td>
+            <td th:text="${item.location}">Location</td>
+            <td><span class="badge" th:classappend="${item.status}" th:text="${item.status}">AVAILABLE</span></td>
+            <td>
+                <a class="btn btn-small" th:if="${item.status == 'AVAILABLE'}"
+                   th:href="@{/claim(itemId=${item.id})}">Claim</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
